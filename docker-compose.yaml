@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres:15
+    container_name: pg-product
+    restart: always
+    environment:
+      POSTGRES_USER: product_user
+      POSTGRES_PASSWORD: product_pass
+      POSTGRES_DB: product_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: adminer-product
+    restart: always
+    ports:
+      - "8080:8080" 
+    depends_on:
+      - db
+volumes:
+  pgdata:
